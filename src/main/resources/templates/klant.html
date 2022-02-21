@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Mandje')"></head>
+<body>
+<ul id="menu">
+    <li><a href="/">Genres</a></li>
+    <li><a href="/mandje">Mandje</a></li>
+    <li><a href="/klant">Klant</a></li>
+</ul>
+<H1>Klanten</H1>
+<form mehtod="get" th:action="@{/klant/klantzoeken}" th:object="${zoekFormulier}">
+    <label>Familienaam bevat:</label>
+    <input type
+</form>
+
+</body>
+</html>

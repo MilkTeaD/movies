@@ -28,7 +28,7 @@ public class JdbcFilmsRepositoryTest extends AbstractTransactionalJUnit4SpringCo
     }
 
     private long idAndereFlutFilm() {
-        return jdbcTemplate.queryForObject("select id from films where titel='AndereFlutFilm'",long.class);
+        return jdbcTemplate.queryForObject("select id from films where titel='FlutFilm'",long.class);
     }
 
     private long idHansGrietje() {
@@ -38,5 +38,26 @@ public class JdbcFilmsRepositoryTest extends AbstractTransactionalJUnit4SpringCo
     @DisplayName("test genreId van AndereFlutFilm")
     void name() {
         assertThat(repository.geefFilmVolgensId(idAndereFlutFilm())).hasValueSatisfying(film->assertThat(film.getGenreId()).isEqualTo(idFlutFilm()));
+
+    }
+
+    @Test
+    @DisplayName("genreId SuperHans en SpiderGrietje = DollyWoodCrap")
+    void name2() {
+        assertThat(repository.geefFilmVolgensId(idHansGrietje())).hasValueSatisfying(film -> assertThat(film.getGenreId()).isEqualTo(idDollyWoodCrap()));
+    }
+
+    @Test
+    @DisplayName("ongeldige id geeft empty")
+    void name3 (){
+        assertThat(repository.geefFilmVolgensId(-7)).isEmpty();
+    }
+    @Test
+    @DisplayName("testDat DollyWoodCrap 2 films heeft en gesorteerd is")
+    void name4() {
+        assertThat(repository.geefAlleFilmsVolgensGenreIdGesorteerdVolgensId(idDollyWoodCrap()))
+                .hasSize(countRowsInTableWhere(FILMS,"genreId="+idDollyWoodCrap()))
+                .extracting(film->film.getFilmId())
+                .isSorted();
     }
 }

@@ -2,7 +2,30 @@
 <html lang="nl" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::head(title='Film')"></head>
 <body>
+<ul id="menu">
+    <li><a href="/">genres</a></li>
+</ul>
+<th:block th:if="${film}" th:object="${film}">
+    <H1 th:text="*{filmTitel}"></H1>
 
+        <img th:src="@{*{'/images/'+filmId+'.jpg'}}" th:alt="*{filmTitel}">
+    <dl>
+        <dt>Prijs</dt>
+        <dd th:text="*{prijs}"></dd>
+        <dt>Voorraad</dt>
+        <dd th:text="*{voorraad}"></dd>
+        <dt>Gereserveerd</dt>
+        <dd th:text="*{gereserveerd}"></dd>
+        <dt>Beschikbaar</dt>
+        <dd th:text="*{beschikBaar}"></dd>
+    </dl>
+    <th:block th:if="${error}">
+        <span th:text="${error}" class="faut"></span><span><a href="/mandje"> mandje</a></span>
+    </th:block>
+    <form method="post" th:action="@{*{'mandje/'+filmId}}" >
+        <button>In mandje</button>
+    </form>
+</th:block>
 
 </body>
 </html>

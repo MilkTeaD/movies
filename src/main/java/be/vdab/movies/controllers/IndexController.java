@@ -25,9 +25,9 @@ class IndexController {
     }
     @GetMapping("{genreId}")
     public ModelAndView toonFilms(@PathVariable long genreId) {
-        System.out.println("wacht es even");
-        return new ModelAndView("index","genres",genreService.geefAlleGenresAlfabetisch())
-                .addObject("films",filmsService.geefAlleFilmsVolgensGenreIdGesorteerdVolgensId(genreId))
-                .addObject(genreService.geefGenreVolgensId(genreId));
+        var modelAndView= new ModelAndView("index","genres",genreService.geefAlleGenresAlfabetisch())
+                .addObject("films",filmsService.geefAlleFilmsVolgensGenreIdGesorteerdVolgensId(genreId));
+        genreService.geefGenreVolgensId(genreId).ifPresent(genre ->modelAndView.addObject(genre));
+        return modelAndView;
     }
 }

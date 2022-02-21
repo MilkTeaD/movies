@@ -2,13 +2,16 @@ package be.vdab.movies.sessions;
 
 import be.vdab.movies.domein.Film;
 import be.vdab.movies.exceptions.FilmAlGereserveerdException;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
+@SessionScope
 public class Mandje implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -35,6 +38,10 @@ public class Mandje implements Serializable {
                 throw new FilmAlGereserveerdException();
             }
         }
+    }
+
+    public void deleteFilmId(long filmId) {
+        lijstVanTeReserverenFilms.removeIf(element->element==filmId);
     }
 
     public long sizeOfMandje() {

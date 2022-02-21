@@ -7,13 +7,15 @@
 </ul>
 <H1>Genres</H1>
     <ul id="menu">
-        <li th:each="genre:${genres}" th:object="${genre}"><a th:href="@{/index/{genreId} (genreId=*{genreId})}"><span th:text="*{genreNaam}"></span></a></li>
+        <li th:each="genre:${genres}" th:object="${genre}">
+            <a th:href="@{/{genreId} (genreId=*{genreId})}"><span th:text="*{genreNaam}"></span></a></li>
     </ul>
-<th:block th:if="${films}" >
+<th:block th:if="${films} and ${genre}" >
     <H2 th:text="${genre.genreNaam}"></H2>
     <th:block th:each="film:${films}" th:object="${film}">
-        <img th:src="@{*{'/images/'+filmId+'.jpg'}}" th:alt="*{filmNaam}">
-
+        <a th:href="*{'/film/'+filmId}">
+        <img th:src="@{*{'/images/'+filmId+'.jpg'}}" th:alt="*{filmTitel}">
+        </a>
     </th:block>
 
 

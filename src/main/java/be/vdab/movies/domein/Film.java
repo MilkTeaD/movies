@@ -3,7 +3,7 @@ package be.vdab.movies.domein;
 import java.math.BigDecimal;
 
 public class Film {
-    private final long id;
+    private final long filmId;
     private final long genreId;
     private final String filmTitel;
     private long voorraad;
@@ -11,7 +11,7 @@ public class Film {
     private final BigDecimal prijs;
 
     public Film(long id, long genreId, String filmTitel, long voorraad, long gereserveerd, BigDecimal prijs) {
-        this.id = id;
+        this.filmId = id;
         this.genreId = genreId;
         this.filmTitel = filmTitel;
         this.voorraad = voorraad;
@@ -19,8 +19,8 @@ public class Film {
         this.prijs = prijs;
     }
 
-    public long getId() {
-        return id;
+    public long getFilmId() {
+        return filmId;
     }
 
     public long getGenreId() {
@@ -49,5 +49,9 @@ public class Film {
 
     public void setGereserveerd(long gereserveerd) {
         this.gereserveerd = gereserveerd;
+    }
+
+    public long getBeschikBaar(){
+        return voorraad-gereserveerd;
     }
 }
