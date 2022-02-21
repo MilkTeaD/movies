@@ -261,3 +261,7 @@ a:hover {
 a:link {
     color:blue;
 }
+
+ul#menu li {
+    display:inline;
+}

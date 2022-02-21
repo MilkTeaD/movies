@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="nl" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Genres</title>
-</head>
+<head th:replace="fragments::head(title='Genres')"></head>
 <body>
-<span th:replace="fragments::titel(title='Genres')"></span>
-<th:block th:each="genre:${genre}" >
+<ul style="{display:inline;}">
+    <li><a href="/">genres</a></li>
+</ul>
+<H1>Genres</H1>
+    <ul id="menu">
+        <li th:each="genre:${genres}" th:object="${genre}"><a th:href="@{/index/{genreId} (genreId=*{genreId})}"><span th:text="*{genreNaam}"></span></a></li>
+    </ul>
+<th:block th:if="${films}" >
+    <H2 th:text="${genre.genreNaam}"></H2>
+    <th:block th:each="film:${films}" th:object="${film}">
+        <img th:src="@{*{'/images/'+filmId+'.jpg'}}" th:alt="*{filmNaam}">
+
+    </th:block>
+
 
 </th:block>
-
 
 </body>
 </html>
