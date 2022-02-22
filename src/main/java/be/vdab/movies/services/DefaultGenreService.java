@@ -3,6 +3,7 @@ package be.vdab.movies.services;
 import be.vdab.movies.domein.Genre;
 import be.vdab.movies.repositories.GenreRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +16,16 @@ class DefaultGenreService implements GenreService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Genre> geefAlleGenresAlfabetisch() {
+
         return genreRepository.geefAlleGenresAlfabetisch();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Genre> geefGenreVolgensId(long genreId) {
+
         return genreRepository.geefGenreVolgensId(genreId);
     }
 }

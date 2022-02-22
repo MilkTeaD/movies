@@ -10,4 +10,5 @@ public interface FilmsRepository {
     List<Film> geefAlleFilmsVolgensGenreIdGesorteerdVolgensId(long genreId);
     Optional<Film> geefFilmVolgensId(long filmId);
     Boolean updateFilmsMetReservatie(long filmId);
+    Optional<Film> findAndLockById(long filmId);
 }

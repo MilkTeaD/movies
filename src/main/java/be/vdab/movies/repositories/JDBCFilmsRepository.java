@@ -1,6 +1,7 @@
 package be.vdab.movies.repositories;
 
 import be.vdab.movies.domein.Film;
+import be.vdab.movies.exceptions.FilmAlGereserveerdException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -53,8 +54,37 @@ class JDBCFilmsRepository implements FilmsRepository{
     }
 
     @Override
+    public Optional<Film> findAndLockById(long filmId) {
+        try {
+            var sql= """
+                        select id,genreId,titel,voorraad,gereserveerd,prijs
+                        from films
+                        where id=?
+                        for update
+                    """;
+            return Optional.of(template.queryForObject(sql,filmRowMapper,filmId));
+        } catch(IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Boolean updateFilmsMetReservatie(long filmId) {
-        //selectForupdate
+        // verondersteld wordt dat de record gelockt werd voor update
+        // en dat de film niet gedeleted werd gedurende de update
+        try {
+            var sql = """
+                    update films
+                    set gereserveerd = gereserveerd+1
+                    where id=?
+                    """;
+            if (template.update(sql,filmId)==0){
+                throw new FilmAlGereserveerdException();
+            }
+        } catch (IncorrectResultSizeDataAccessException exception) {
+            throw new FilmAlGereserveerdException();
+        }
+
         return false;
     }
 }

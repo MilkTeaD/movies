@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments::head(title='Mandje')"></head>
+<head th:replace="fragments::head(title='Klanten')"></head>
 <body>
 <ul id="menu">
     <li><a href="/">Genres</a></li>
@@ -10,8 +10,16 @@
 <H1>Klanten</H1>
 <form mehtod="get" th:action="@{/klant/klantzoeken}" th:object="${zoekFormulier}">
     <label>Familienaam bevat:</label>
-    <input type
+    <span class="faut" th:errors="*{deelNaam}"></span>
+    <input th:field="*{deelNaam}" autofocus type="text" placeholder="geef een deel van de naam die je wil zoeken">
+    <button>Zoeken</button>
 </form>
+<br>
+<th:block th:if="${klantLijst}" th:object="${klantLijst}">
+    <!-- lijst van klanten -->
+    <table th:replace="fragments::klantTabel(klanten=${klantLijst})"></table>
+</th:block>
+</th:block><!-- als bestemming bestaat -->
 
 </body>
 </html>

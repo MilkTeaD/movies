@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Rapport')"></head>
+<body>
+<ul id="menu">
+    <li><a href="/">Genres</a></li>
+</ul>
+<H1>Rapport</H1>
+    <th:block th:if="${param.lijstMislukteReservaties}">
+        <ul th:each="film:${mislukteLijst}" th:object="${film}">
+            <li th:text="*{filmTitel}"></li>
+        </ul>
+
+        Mislukt
+    </th:block>
+    <th:block th:unless="${param.lijstMislukteReservaties}">
+        Gelukt
+    </th:block>
+
+</body>
+</html>

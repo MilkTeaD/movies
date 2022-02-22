@@ -23,6 +23,7 @@
         <span th:text="${error}" class="faut"></span><span><a href="/mandje"> mandje</a></span>
     </th:block>
     <form method="post" th:action="@{*{'mandje/'+filmId}}" >
+        <!-- TODO alleen button tonen als er beschikbaar zijn -->
         <button>In mandje</button>
     </form>
 </th:block>

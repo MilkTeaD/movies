@@ -45,7 +45,7 @@ class FilmController {
             }
             var filmListMandje=new ArrayList<Film>();
             mandje.getLijstFilmIds().forEach(x->filmsService.geefFilmVolgensId(x).ifPresent(film->filmListMandje.add(film)));
-            return new ModelAndView("mandje")
+            return new ModelAndView("redirect:/mandje")
                      .addObject("filmListMandje",filmListMandje);
         }
 

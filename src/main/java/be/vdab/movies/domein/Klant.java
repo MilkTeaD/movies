@@ -4,7 +4,7 @@ public class Klant {
     private final long klantId;
     private final String familieNaam;
     private final String voorNaam;
-    private final String Adres;
+    private final String adres;
     private final long postCode;
     private final String plaatsNaam;
 
@@ -12,7 +12,7 @@ public class Klant {
         this.klantId = klantId;
         this.familieNaam = familieNaam;
         this.voorNaam = voorNaam;
-        Adres = adres;
+        this.adres = adres;
         this.postCode = postCode;
         this.plaatsNaam = plaatsNaam;
     }
@@ -30,7 +30,7 @@ public class Klant {
     }
 
     public String getAdres() {
-        return Adres;
+        return adres;
     }
 
     public long getPostCode() {

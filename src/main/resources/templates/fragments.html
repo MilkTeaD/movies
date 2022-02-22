@@ -4,3 +4,21 @@
     <link rel="icon" th:href="@{/images/movies.ico}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/movies.css}">
 </head>
+<table th:fragment="klantTabel(klanten)" id="klanttabel" xmlns:th="http://www.thymeleaf.org">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Straat - Huisnummer</th>
+        <th>Postcode</th>
+        <th>Gemeente</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="klant : ${klanten}" th:object="${klant}">
+        <td><a th:href="@{/klant/bevestigen/{klantId} (klantId=*{klantId})}"><span th:text="*{familieNaam}"></span> <span th:text="*{voorNaam}"></span></a></td>
+        <td th:text="*{adres}" >/td>
+        <td th:text="*{postCode}" class="getal" align="right"></td>
+        <td th:text="*{plaatsNaam}"></td>
+    </tr>
+    </tbody>
+</table>
