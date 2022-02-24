@@ -30,13 +30,15 @@ public class JdbcReservatieRepositoryTest extends AbstractTransactionalJUnit4Spr
     @Test
     @DisplayName("Testen als een reservatie wel toegevoegd werd")
     void name() {
+        System.out.println("KlantId: "+getTestKlantId());
+        System.out.println("idFlutFilm"+idFlutFilm());
         assertThat(repository.voegReservatieToe(getTestKlantId(),idFlutFilm())).isPositive();
 
     }
 
     @Test
     @DisplayName("Een verkeerd klantID ingeven geeft fout")
-    void name() {
+    void name2() {
         assertThat(repository.voegReservatieToe(-1L,-1L)).isEqualTo(0L);
     }
 
