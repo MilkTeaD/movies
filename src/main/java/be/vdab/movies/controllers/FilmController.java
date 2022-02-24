@@ -29,7 +29,12 @@ class FilmController {
     @GetMapping("{filmId}")
     public ModelAndView showFilm(@PathVariable long filmId) {
         var modelAndView = new ModelAndView("film");
-        filmsService.geefFilmVolgensId(filmId).ifPresent(film->modelAndView.addObject(film));
+        filmsService.geefFilmVolgensId(filmId).ifPresent(film->{
+            modelAndView.addObject(film);
+            if (film.getBeschikBaar()>0) {
+                modelAndView.addObject("beschikBaar",film.getBeschikBaar());
+            }
+        });
         return modelAndView;
     }
 

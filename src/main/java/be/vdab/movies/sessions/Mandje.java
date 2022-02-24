@@ -9,19 +9,21 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 @Component
 @SessionScope
-public class Mandje implements Serializable {
+public class Mandje implements Serializable{
     @Serial
     private static final long serialVersionUID = 1L;
-    private final List<Long> lijstVanTeReserverenFilms = new ArrayList<>();
+    private final TreeSet<Long> lijstVanTeReserverenFilms = new TreeSet<>();
 
     public void mandjeLeegMaken() {
         lijstVanTeReserverenFilms.clear();
     }
 
-    public List<Long> getLijstFilmIds() {
+    public Set<Long> getLijstFilmIds() {
         return lijstVanTeReserverenFilms;
     }
 

@@ -19,7 +19,7 @@ public class JdbcFilmsRepositoryTest extends AbstractTransactionalJUnit4SpringCo
     public JdbcFilmsRepositoryTest(JDBCFilmsRepository jdbcFilmsRepository) {
         this.repository = jdbcFilmsRepository;
     }
-    private long idFlutFilm() {
+    private long idFlutFilms() {
         return jdbcTemplate.queryForObject("select id from genres where naam='AndereFlutFilms'",long.class);
     }
 
@@ -37,7 +37,7 @@ public class JdbcFilmsRepositoryTest extends AbstractTransactionalJUnit4SpringCo
     @Test
     @DisplayName("test genreId van AndereFlutFilm")
     void name() {
-        assertThat(repository.geefFilmVolgensId(idAndereFlutFilm())).hasValueSatisfying(film->assertThat(film.getGenreId()).isEqualTo(idFlutFilm()));
+        assertThat(repository.geefFilmVolgensId(idAndereFlutFilm())).hasValueSatisfying(film->assertThat(film.getGenreId()).isEqualTo(idFlutFilms()));
 
     }
 

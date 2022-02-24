@@ -1,5 +1,6 @@
 package be.vdab.movies.repositories;
 
+import be.vdab.movies.exceptions.FilmAlGereserveerdException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @JdbcTest
 @Import(JDBCReservatieRepository.class)
@@ -22,24 +24,25 @@ public class JdbcReservatieRepositoryTest extends AbstractTransactionalJUnit4Spr
         this.repository = repository;
     }
 
-    private long idFlutFilm() {return jdbcTemplate.queryForObject("select id from genres where naam='AndereFlutFilms'", long.class);}
     private long getTestKlantId() {return jdbcTemplate.queryForObject("select id from klanten where familienaam='Test' and voornaam='Test'  ", long.class);}
-    private long idDollyWoodCrap() {return jdbcTemplate.queryForObject("select id from genres where naam ='DollyWoodCrap'", long.class);}
     private long idAndereFlutFilm() {return jdbcTemplate.queryForObject("select id from films where titel='FlutFilm'", long.class);}private long idHansGrietje() {return jdbcTemplate.queryForObject("select id from films where titel='SuperHans en SpiderGrietje'", long.class);}
 
     @Test
     @DisplayName("Testen als een reservatie wel toegevoegd werd")
     void name() {
         System.out.println("KlantId: "+getTestKlantId());
-        System.out.println("idFlutFilm"+idFlutFilm());
-        assertThat(repository.voegReservatieToe(getTestKlantId(),idFlutFilm())).isPositive();
+        System.out.println("idFlutFilm"+idAndereFlutFilm());
+        assertThat(repository.voegReservatieToe(getTestKlantId(),idAndereFlutFilm())).isPositive();
 
     }
 
     @Test
     @DisplayName("Een verkeerd klantID ingeven geeft fout")
     void name2() {
-        assertThat(repository.voegReservatieToe(-1L,-1L)).isEqualTo(0L);
+        assertThatExceptionOfType(FilmAlGereserveerdException.class)
+                .isThrownBy(
+                        ()-> repository.voegReservatieToe(-1L,-1L)
+                );
     }
 
 }

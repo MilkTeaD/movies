@@ -1,5 +1,6 @@
 package be.vdab.movies.repositories;
 
+import be.vdab.movies.exceptions.FilmAlGereserveerdException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -20,10 +21,14 @@ class JDBCReservatieRepository implements ReservatieRepository{
 
     @Override
     public long voegReservatieToe(long klantId, long filmId) {
-        return insert.execute(
-                Map.of("klantId", klantId,
-                        "filmId", filmId,
-                        "reservatie", LocalDateTime.now())
-        );
+        try {
+            return insert.execute(
+                    Map.of("klantId", klantId,
+                            "filmId", filmId,
+                            "reservatie", LocalDateTime.now())
+            );
+        } catch (Exception e) {
+            throw new FilmAlGereserveerdException();
+        }
     }
 }

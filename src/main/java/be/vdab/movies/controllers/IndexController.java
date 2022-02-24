@@ -21,7 +21,9 @@ class IndexController {
 
     @GetMapping("/")
     public ModelAndView index() {
-        return new ModelAndView("index","genres",genreService.geefAlleGenresAlfabetisch());
+
+        return new ModelAndView("index","genres",genreService.geefAlleGenresAlfabetisch())
+                .addObject("startGeenFout",true);
     }
     @GetMapping("{genreId}")
     public ModelAndView toonFilms(@PathVariable long genreId) {

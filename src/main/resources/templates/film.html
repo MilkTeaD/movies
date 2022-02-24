@@ -22,10 +22,15 @@
     <th:block th:if="${error}">
         <span th:text="${error}" class="faut"></span><span><a href="/mandje"> mandje</a></span>
     </th:block>
-    <form method="post" th:action="@{*{'mandje/'+filmId}}" >
-        <!-- TODO alleen button tonen als er beschikbaar zijn -->
-        <button>In mandje</button>
-    </form>
+    <th:block th:if="${beschikBaar}">
+        <form method="post" th:action="@{*{'mandje/'+filmId}}" >
+            <!-- TODO alleen button tonen als er beschikbaar zijn -->
+            <button>In mandje</button>
+        </form>
+    </th:block>
+</th:block>
+<th:block th:unless="${film}">
+    <H1 class="faut">Film bestaat niet (meer)</H1>
 </th:block>
 
 </body>
