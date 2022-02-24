@@ -29,7 +29,7 @@ public class JdbcReservatieRepositoryTest extends AbstractTransactionalJUnit4Spr
 
     @Test
     @DisplayName("Testen als een reservatie wel toegevoegd werd")
-    void nam() {
+    void name() {
         assertThat(repository.voegReservatieToe(getTestKlantId(),idFlutFilm())).isPositive();
 
     }
